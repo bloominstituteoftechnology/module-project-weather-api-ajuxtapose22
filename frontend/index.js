@@ -5,6 +5,8 @@ async function moduleProject4() {
   const currentYear = new Date().getFullYear()
   footer.textContent = `© BLOOM INSTITUTE OF TECHNOLOGY ${currentYear}`
 
+  
+  
   let descriptions = [
     ["Sunny", "☀️"],
     ["Cloudy", "☁️"],
@@ -13,8 +15,15 @@ async function moduleProject4() {
     ["Snowy", "❄️"],
     ["Partly Cloudy", "⛅️"]
   ]
-
+  
   // 👉 Tasks 1 - 5 go here
+  document.querySelector('#weatherWidget').style.display = 'none';
+  document.querySelector('#citySelect').addEventListener('change', async evt => {
+   const selectedCity = evt.target.value;
+   console.log('Selected City: ', selectedCity);
+  });
+
+  
 
   // 👆 WORK WORK ABOVE THIS LINE 👆
 
