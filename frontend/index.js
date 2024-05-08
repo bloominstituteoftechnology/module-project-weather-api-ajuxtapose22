@@ -24,7 +24,7 @@ async function moduleProject4() {
     document.querySelector('#weatherWidget').style.display = 'none';
     document.querySelector('p.info').textContent = 'Fetching weather data...';
     
-    console.log(evt.target.value);
+    // console.log(evt.target.value);
     
     const city = evt.target.value;
     const url = `http://localhost:3003/api/weather?city=${city}`;
@@ -64,13 +64,34 @@ async function moduleProject4() {
       const todayDescription = document.querySelector("#todayDescription");
       todayDescription.textContent = `${emoji}`;
 
-        console.log(weatherDescription);
+       data.forecast.daily.forEach((day, idx) => {
+        let card = document.querySelectorAll('.next-day')[idx];
+
+        let weekDay = card.children[0];
+        let apparent = card.children[1];
+        let minMaxCards = card.children[2];
+        let precipCards = card.children[3];
         
+        weekDay.textContent = getWeekDay(day.date);
+        apparent.textContent = descriptions.find(d => d[0] === day.weather_description)[1];
+        minMaxCards.textContent = `${day.temperature_min}° / ${day.temperature_max}°`;
+        precipCards.textContent = `Precipitation: ${day.precipitation_probability *100}%`
+       })
+
+       document.querySelector('#location').firstElementChild.textContent = data.location.city;
 
       })
       .catch(error => {
         console.error('Rejected :', error.message);
       });
+
+      function getWeekDay(dateString){
+        let date = new Date(dateString);
+        let dayOfWeekNumber = date.getDay();
+        let weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+        return weekdays[dayOfWeekNumber];
+      }
+
   });
   
 
